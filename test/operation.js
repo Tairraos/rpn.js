@@ -1,7 +1,3 @@
-/**
- * mocha unit test, install mocha first.
- * npm install -g mocha
- */
 var expect = require('chai').expect,
     rpn = require('../rpn');
 
