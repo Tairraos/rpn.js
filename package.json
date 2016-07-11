@@ -7,5 +7,8 @@
   "main": "rpn.js",
   "repository": {
     "url": "https://github.com/Tairraos/rpn.js.git"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0"
   }
 }
