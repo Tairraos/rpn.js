@@ -1,3 +1,5 @@
 # RPN
-Get a Reverse Polish Notation (postfix expression) from infix expression. support + - * / ^ ! √ ( )
-
+Reverse Polish Notation tools.   
+Translate infix expression to reverse polish notation (postfix expression).  
+Calculate reverse polish notation.  
+support + - * / ^ % ! √ ( ) —   
