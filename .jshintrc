@@ -1,5 +1,6 @@
 {
   "strict": true,
+  "mocha": true,
   "module": true,
   "noempty": true,
   "noarg": true,
