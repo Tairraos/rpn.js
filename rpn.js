@@ -3,6 +3,7 @@
 
     /**
      * operations
+     * test/operation.js
      */
     var operation = {
         '+': (a, b) => a + b,
@@ -27,8 +28,8 @@
      */
     function splitExp(exp) {
         exp = exp.replace(/[a-zA-Z\s]/, '');
-        return (/^[+*\/!^%]|[+\-*\/^%]{2,}|[+\-*\/√^]$/.test(exp)) &&
-            exp.match(/(-?(?:\d+\.?\d*|-?\.\d*))|[()+\-*\/√!^%]/gi);
+        return (/^[+*\/!^%]|\d√|%\d|!\d|%%|[+\-*\/^]{2,}|[+\-*\/√^]$/.test(exp)) ?
+            null : exp.match(/(-?(?:\d+\.?\d*|-?\.\d*))|[()+\-*\/√!^%]/gi);
     }
 
     /**
