@@ -1,141 +1,71 @@
-'use strict';
-let deep = 9,
-    operation = {
-        '+': (a, b) => a + b,
-        '-': (a, b) => a - b,
-        '*': (a, b) => a * b,
-        '/': (a, b) => a / b,
-        '^': (x, n) => Math.pow(x, n),
-        '√': n => Math.sqrt(n),
-        '!': function (n) {
-            for (var i = 1, r = 1; i <= n; i++) {
-                r = r * i;
-            }
-            return r;
-        }
-    };
+(function () {
+    'use strict';
 
-
-/**
- *
- * @param {number} num - calculate result
- * @param {number} base - the base number
- * @returns {string}
- */
-function parseNum(num, base) {
-    var resolving = '';
-
-    return resolving;
-}
-
-/**
- * calculate expression
- * @param {string} exp - expression
- * @returns {number} - calculate result
- */
-function parseExp(exp) {
-    var result = 0;
-
-    return result;
-}
-
-function infix2RPN(expression) {
-    var result = '',
-        stack = [],
-        operators = ['√', '!', '^', '*', '/', '+', '-'],
-        precedence = {'(': 4, ')': 4, '√': 3, '!': 3, '^': 3, '*': 2, '/': 2, '+': 1, '-': 1},
-        tokens = expression.match(/(-?(?:\d+\.?\d*|-?\.\d*))|[()+\-*\/√!^]/gi),
-        item;
-
-    for (var i = 0; i < tokens.length; i++) {
-        var token = tokens[i];
-        if (operators.indexOf(token) > -1) {
-            while (stack.length && operators.indexOf(stack[stack.length - 1]) > -1) {
-                var operator = stack.pop();
-                result += (' ' + operator);
-            }
-
-            stack.push(token);
-        } else if (token === '(') {
-            stack.push(token);
-        } else if (token === ')') {
-            item = stack.pop();
-
-            while (item !== '(') {
-                result += (' ' + item);
-                item = stack.pop();
-            }
-        } else if (token) {
-            result += (' ' + token);
-        }
+    /**
+     * split expression to array
+     * @param exp - infix expression
+     * @returns {Array|Null}
+     */
+    function splitExp(exp) {
+        exp = exp.replace(/[a-zA-Z\s]/, '');
+        return (/^[+*\/!^%]|[+\-*\/^%]{2,}|[+\-*\/√^]$/.test(exp)) &&
+            exp.match(/(-?(?:\d+\.?\d*|-?\.\d*))|[()+\-*\/√!^%]/gi);
     }
 
-    while (stack.length) {
-        item = stack.pop();
-        result += (' ' + item);
-    }
+    /**
+     * transfer infix expression to reverse polish notation
+     * @param exp - infix expression
+     * @returns {String|Null}
+     */
+    function infix2rpn(exp) {
+        var arrExp = splitExp(exp),
+            stack1 = [], stack2 = [], output = '',
+            operators = ['√', '%', '!', '^', '*', '/', '+', '-'],
+            precedence = {'(': 4, ')': 4, '√': 3, '%': 3, '!': 3, '^': 3, '*': 2, '/': 2, '+': 1, '-': 1},
+            item;
 
-    result = result.trim();
+        for (var i = 0; i < arrExp.length; i++) {
+            var token = arrExp[i];
+            if (operators.indexOf(token) > -1) {
+                while (stack1.length && operators.indexOf(stack1[stack1.length - 1]) > -1) {
+                    var operator = stack1.pop();
+                    output += (' ' + operator);
+                }
 
-    return (result.length >= 1 ? result : null);
-}
+                stack1.push(token);
+            } else if (token === '(') {
+                stack1.push(token);
+            } else if (token === ')') {
+                item = stack1.pop();
 
-function calculateRPN(expression) {
-    if (typeof expression !== 'string') {
-        if (expression instanceof String) {
-            expression = expression.toString();
-        } else {
-            return null;
-        }
-    }
-
-    var result;
-    var tokens = expression.split(/\s+/);
-    var stack = [];
-    var first;
-    var second;
-    var containsInvalidChars = /[^()+\-*/0-9.\s]/gi.test(expression);
-
-    if (containsInvalidChars) {
-        return null;
-    }
-
-    for (var i = 0; i < tokens.length; i++) {
-        var token = tokens[i];
-
-        if (token === '*') {
-            second = stack.pop();
-            first = stack.pop();
-
-            if (typeof first === 'undefined') {
-                first = 1;
-            }
-
-            if (typeof second === 'undefined') {
-                second = 1;
-            }
-
-            stack.push(first * second);
-        } else if (token === '/') {
-            second = stack.pop();
-            first = stack.pop();
-            stack.push(first / second);
-        } else if (token === '+') {
-            second = stack.pop();
-            first = stack.pop();
-            stack.push(first + second);
-        } else if (token === '-') {
-            second = stack.pop();
-            first = stack.pop();
-            stack.push(first - second);
-        } else {
-            if (!isNaN(token)) {
-                stack.push(Number(token));
+                while (item !== '(') {
+                    output += (' ' + item);
+                    item = stack1.pop();
+                }
+            } else if (token) {
+                output += (' ' + token);
             }
         }
+
+        while (stack1.length) {
+            item = stack1.pop();
+            output += (' ' + item);
+        }
+
+        output = output.trim();
+
+        return (output.length >= 1 ? output : null);
     }
 
-    result = stack.pop();
+    var rpn = {};
+    rpn.infix2rpn = infix2rpn;
+    rpn.splitExp = splitExp;
 
-    return result;
-}
+    if (typeof module !== 'undefined' && module.exports) {
+        module.exports = rpn;
+    }
+
+    if (typeof window !== 'undefined') {
+        window.rpn = rpn;
+    }
+}());

@@ -1,4 +1,4 @@
-*.DS_Store
-._*
+.DS_Store
 .gitignore
-.idea
+/.idea/
+/node_modules/

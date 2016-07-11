@@ -11,5 +11,7 @@
   "undef": true,
   "esversion": 6,
   "nonew": true,
-  "forin": true
+  "forin": true,
+  "debug": true,
+  "node": true
 }
