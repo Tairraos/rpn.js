@@ -11,6 +11,7 @@ describe('test isOperator', function () {
         expect(rpn.isOperator('^')).equal(true);
         expect(rpn.isOperator('%')).equal(true);
         expect(rpn.isOperator('√')).equal(true);
+        expect(rpn.isOperator('#')).equal(true);
     });
 
     it('test number, bracket and invalid operator', function () {

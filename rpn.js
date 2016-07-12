@@ -38,7 +38,7 @@
      * @returns {boolean}
      */
     function isOperator(char) {
-        return /^[√%!^\*\/+\-]$/.test(char);
+        return /^[√%!^\*\/+\-#]$/.test(char);
     }
 
     /**
@@ -65,43 +65,46 @@
      * @returns {String|Null}
      */
     function infix2rpn(exp) {
-        var arrExp = splitExp(exp),
-            expStack = [], opStack = [], output = '',
+        var arrExp = splitExp(exp).concat('#'),
+            expStack = [], opStack = [], opItem, stackItem,
+            precedence = {'√': 3, '%': 3, '!': 3, '^': 3, '*': 2, '/': 2, '+': 1, '-': 1, '#': 0},
+
+            output = '',
             operators = /[√%!^\*\/+\-]/,
-            precedence = {'(': 4, ')': 4, '√': 3, '%': 3, '!': 3, '^': 3, '*': 2, '/': 2, '+': 1, '-': 1},
             item;
 
-        for (var i = 0; i < arrExp.length; i++) {
-            var token = arrExp[i];
-            if (isOperator(token)) {
-                while (expStack.length && operators.indexOf(expStack[expStack.length - 1]) > -1) {
-                    var operator = expStack.pop();
-                    output += (' ' + operator);
-                }
+        for (var looper = 0; looper < arrExp.length; looper++) {
+            opItem = arrExp[looper];
 
-                expStack.push(token);
-            } else if (token === '(') {
-                expStack.push(token);
-            } else if (token === ')') {
-                item = expStack.pop();
-
-                while (item !== '(') {
-                    output += (' ' + item);
-                    item = expStack.pop();
+            if (isNumber(opItem)) {
+                expStack.push(opItem);
+            } else if (isOperator(opItem)) {
+                while (opStack.length) {
+                    stackItem = opStack.pop();
+                    if (precedence[stackItem] >= precedence[opItem]) {
+                        expStack.push(stackItem);
+                    } else {
+                        opStack.push(stackItem);
+                        break;
+                    }
                 }
-            } else if (token) {
-                output += (' ' + token);
+                opStack.push(opItem);
+            } else if (isBrackets(opItem)) {
+                if (opItem === '(') {
+                    opStack.push(opItem);
+                } else if (opItem === ')') {
+                    while (opStack.length) {
+                        stackItem = opStack.pop();
+                        if (stackItem !== '(') {
+                            expStack.push(stackItem);
+                        } else {
+                            break;
+                        }
+                    }
+                }
             }
         }
-
-        while (expStack.length) {
-            item = expStack.pop();
-            output += (' ' + item);
-        }
-
-        output = output.trim();
-
-        return (output.length >= 1 ? output : null);
+        return expStack.length ? expStack.join(' ') : null;
     }
 
     /**
@@ -110,14 +113,6 @@
      * @returns {number}
      */
     function rpnCalculate(exp) {
-        if (typeof exp !== 'string') {
-            if (exp instanceof String) {
-                exp = exp.toString();
-            } else {
-                return null;
-            }
-        }
-
         var result;
         var tokens = exp.split(/\s+/);
         var stack = [];
