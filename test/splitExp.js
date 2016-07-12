@@ -31,15 +31,17 @@ describe('test operation', function () {
 
     it('test split valid expression', function () {
         expect(rpn.splitExp('-1')).deep.equal(['-1']);
-        expect(rpn.splitExp('√1')).deep.equal(["√", "1"]);
-        expect(rpn.splitExp('(1)')).deep.equal(["(", "1", ")"]);
-        expect(rpn.splitExp('1!')).deep.equal(["1", "!"]);
-        expect(rpn.splitExp('1^2')).deep.equal(["1", "^", "2"]);
-        expect(rpn.splitExp('1!!+1')).deep.equal(["1", "!", "!", "+", "1"]);
-        expect(rpn.splitExp('1+√1')).deep.equal(["1", "+", "√", "1"]);
-        expect(rpn.splitExp('1%+1')).deep.equal(["1", "%", "+", "1"]);
-        expect(rpn.splitExp('1!+1')).deep.equal(["1", "!", "+", "1"]);
-        expect(rpn.splitExp('1+1')).deep.equal(["1", "+", "1"]);
-        expect(rpn.splitExp('1+1*1')).deep.equal(["1", "+", "1", "*", "1"]);
+        expect(rpn.splitExp('√1')).deep.equal(['√', '1']);
+        expect(rpn.splitExp('(1)')).deep.equal(['(', '1', ')']);
+        expect(rpn.splitExp('1!')).deep.equal(['1', '!']);
+        expect(rpn.splitExp('1^2')).deep.equal(['1', '^', '2']);
+        expect(rpn.splitExp('1!!+1')).deep.equal(['1', '!', '!', '+', '1']);
+        expect(rpn.splitExp('1+√1')).deep.equal(['1', '+', '√', '1']);
+        expect(rpn.splitExp('1%+1')).deep.equal(['1', '%', '+', '1']);
+        expect(rpn.splitExp('1!+1')).deep.equal(['1', '!', '+', '1']);
+        expect(rpn.splitExp('1+1')).deep.equal(['1', '+', '1']);
+        expect(rpn.splitExp('1+1*1')).deep.equal(['1', '+', '1', '*', '1']);
+        expect(rpn.splitExp('1+(-1)')).deep.equal(['1', '+', '(', '-1', ')']);
+        expect(rpn.splitExp('1 + -1')).deep.equal(['1', '+', '-1']);
     });
 });

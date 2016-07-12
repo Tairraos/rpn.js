@@ -33,42 +33,69 @@
     }
 
     /**
+     * check character, is or not a operator
+     * @param char - character
+     * @returns {boolean}
+     */
+    function isOperator(char) {
+        return /^[√%!^\*\/+\-]$/.test(char);
+    }
+
+    /**
+     * check character, is or not a bracket
+     * @param char - character
+     * @returns {boolean}
+     */
+    function isBrackets(char) {
+        return /^[\(\)]$/.test(char);
+    }
+
+    /**
+     * check string, is or not a number
+     * @param str - character
+     * @returns {boolean}
+     */
+    function isNumber(str) {
+        return /^-?\d+\.\d+$|^-?\d+$/.test(str);
+    }
+
+    /**
      * transfer infix expression to reverse polish notation
      * @param exp - infix expression
      * @returns {String|Null}
      */
     function infix2rpn(exp) {
         var arrExp = splitExp(exp),
-            stack1 = [], stack2 = [], output = '',
-            operators = ['√', '%', '!', '^', '*', '/', '+', '-'],
+            expStack = [], opStack = [], output = '',
+            operators = /[√%!^\*\/+\-]/,
             precedence = {'(': 4, ')': 4, '√': 3, '%': 3, '!': 3, '^': 3, '*': 2, '/': 2, '+': 1, '-': 1},
             item;
 
         for (var i = 0; i < arrExp.length; i++) {
             var token = arrExp[i];
-            if (operators.indexOf(token) > -1) {
-                while (stack1.length && operators.indexOf(stack1[stack1.length - 1]) > -1) {
-                    var operator = stack1.pop();
+            if (isOperator(token)) {
+                while (expStack.length && operators.indexOf(expStack[expStack.length - 1]) > -1) {
+                    var operator = expStack.pop();
                     output += (' ' + operator);
                 }
 
-                stack1.push(token);
+                expStack.push(token);
             } else if (token === '(') {
-                stack1.push(token);
+                expStack.push(token);
             } else if (token === ')') {
-                item = stack1.pop();
+                item = expStack.pop();
 
                 while (item !== '(') {
                     output += (' ' + item);
-                    item = stack1.pop();
+                    item = expStack.pop();
                 }
             } else if (token) {
                 output += (' ' + token);
             }
         }
 
-        while (stack1.length) {
-            item = stack1.pop();
+        while (expStack.length) {
+            item = expStack.pop();
             output += (' ' + item);
         }
 
@@ -147,6 +174,10 @@
     rpn.splitExp = splitExp;
     rpn.infix2rpn = infix2rpn;
     rpn.rpnCalculate = rpnCalculate;
+    rpn.isOperator = isOperator;
+    rpn.isBrackets = isBrackets;
+    rpn.isNumber = isNumber;
+
 
     if (typeof module !== 'undefined' && module.exports) {
         module.exports = rpn;
