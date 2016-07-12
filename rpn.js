@@ -6,19 +6,19 @@
      * test/operation.js
      */
     var operation = {
-        '+': (a, b) => a + b,
-        '-': (a, b) => a - b,
-        '*': (a, b) => a * b,
-        '/': (a, b) => a / b,
+        '+': (a, b) => (+a) + (+b),
+        '-': (a, b) => (+a) - (+b),
+        '*': (a, b) => (+a) * (+b),
+        '/': (b, a) => (+a) / (+b),
+        '^': (x, n) => Math.pow(+x, +n),
         '!': function (n) {
-            for (var i = 1, r = 1; i <= n; i++) {
+            for (var i = 1, r = 1; i <= +n; i++) {
                 r = r * i;
             }
-            return (n < 0) ? NaN : r;
+            return (+n < 0) ? NaN : r;
         },
-        '^': (x, n) => Math.pow(x, n),
-        '%': n => n / 100,
-        '√': n => Math.sqrt(n)
+        '%': n => +n / 100,
+        '√': n => Math.sqrt(+n)
     };
 
     /**
@@ -38,7 +38,16 @@
      * @returns {boolean}
      */
     function isOperator(char) {
-        return /^[√%!^\*\/+\-#]$/.test(char);
+        return /^[√%!^\/\*\-\+#]$/.test(char);
+    }
+
+    /**
+     * check character, is or not a unary operator
+     * @param char - character
+     * @returns {boolean}
+     */
+    function isUnaryOperator(char) {
+        return /^[√%!]$/.test(char);
     }
 
     /**
@@ -67,11 +76,7 @@
     function infix2rpn(exp) {
         var arrExp = splitExp(exp).concat('#'),
             expStack = [], opStack = [], opItem, stackItem,
-            precedence = {'√': 3, '%': 3, '!': 3, '^': 3, '*': 2, '/': 2, '+': 1, '-': 1, '#': 0},
-
-            output = '',
-            operators = /[√%!^\*\/+\-]/,
-            item;
+            precedence = {'√': 3, '%': 3, '!': 3, '^': 3, '/': 2, '*': 2, '-': 1, '+': 1, '#': 0};
 
         for (var looper = 0; looper < arrExp.length; looper++) {
             opItem = arrExp[looper];
@@ -92,7 +97,7 @@
             } else if (isBrackets(opItem)) {
                 if (opItem === '(') {
                     opStack.push(opItem);
-                } else if (opItem === ')') {
+                } else {
                     while (opStack.length) {
                         stackItem = opStack.pop();
                         if (stackItem !== '(') {
@@ -113,66 +118,33 @@
      * @returns {number}
      */
     function rpnCalculate(exp) {
-        var result;
-        var tokens = exp.split(/\s+/);
-        var stack = [];
-        var first;
-        var second;
-        var containsInvalidChars = /[^()+\-*/0-9.\s]/gi.test(exp);
+        var arrExp = exp.split(' '), calcStack = [], opItem, param1, param2;
 
-        if (containsInvalidChars) {
-            return null;
-        }
-
-        for (var i = 0; i < tokens.length; i++) {
-            var token = tokens[i];
-
-            if (token === '*') {
-                second = stack.pop();
-                first = stack.pop();
-
-                if (typeof first === 'undefined') {
-                    first = 1;
-                }
-
-                if (typeof second === 'undefined') {
-                    second = 1;
-                }
-
-                stack.push(first * second);
-            } else if (token === '/') {
-                second = stack.pop();
-                first = stack.pop();
-                stack.push(first / second);
-            } else if (token === '+') {
-                second = stack.pop();
-                first = stack.pop();
-                stack.push(first + second);
-            } else if (token === '-') {
-                second = stack.pop();
-                first = stack.pop();
-                stack.push(first - second);
-            } else {
-                if (!isNaN(token)) {
-                    stack.push(Number(token));
+        for (var looper = 0; looper < arrExp.length; looper++) {
+            opItem = arrExp[looper];
+            if (isNumber(opItem)) {
+                calcStack.push(opItem);
+            } else if (isOperator(opItem)) {
+                if (isUnaryOperator(opItem)) {
+                    calcStack.push(operation[opItem](calcStack.pop()));
+                } else {
+                    calcStack.push(operation[opItem](calcStack.pop(), calcStack.pop()));
                 }
             }
         }
-
-        result = stack.pop();
-
-        return result;
+        return calcStack.pop();
     }
 
-    var rpn = {};
-    rpn.operation = operation;
-    rpn.splitExp = splitExp;
-    rpn.infix2rpn = infix2rpn;
-    rpn.rpnCalculate = rpnCalculate;
-    rpn.isOperator = isOperator;
-    rpn.isBrackets = isBrackets;
-    rpn.isNumber = isNumber;
-
+    var rpn = {
+        operation: operation,
+        splitExp: splitExp,
+        infix2rpn: infix2rpn,
+        rpnCalculate: rpnCalculate,
+        isOperator: isOperator,
+        isBrackets: isBrackets,
+        isNumber: isNumber,
+        isUnaryOperator: isUnaryOperator,
+    };
 
     if (typeof module !== 'undefined' && module.exports) {
         module.exports = rpn;

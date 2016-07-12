@@ -7,8 +7,8 @@ describe('test isOperator', function () {
         expect(rpn.isOperator('-')).equal(true);
         expect(rpn.isOperator('*')).equal(true);
         expect(rpn.isOperator('/')).equal(true);
-        expect(rpn.isOperator('!')).equal(true);
         expect(rpn.isOperator('^')).equal(true);
+        expect(rpn.isOperator('!')).equal(true);
         expect(rpn.isOperator('%')).equal(true);
         expect(rpn.isOperator('√')).equal(true);
         expect(rpn.isOperator('#')).equal(true);
@@ -22,6 +22,17 @@ describe('test isOperator', function () {
         expect(rpn.isOperator('.')).equal(false);
         expect(rpn.isOperator('++')).equal(false);
         expect(rpn.isOperator('+%')).equal(false);
+    });
+
+    it('test unary operator', function () {
+        expect(rpn.isUnaryOperator('+')).equal(false);
+        expect(rpn.isUnaryOperator('-')).equal(false);
+        expect(rpn.isUnaryOperator('*')).equal(false);
+        expect(rpn.isUnaryOperator('/')).equal(false);
+        expect(rpn.isUnaryOperator('^')).equal(false);
+        expect(rpn.isUnaryOperator('!')).equal(true);
+        expect(rpn.isUnaryOperator('%')).equal(true);
+        expect(rpn.isUnaryOperator('√')).equal(true);
     });
 
 });
