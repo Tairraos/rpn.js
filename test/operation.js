@@ -13,11 +13,11 @@ describe('test operation', function () {
 
     it('test "-" operator', function () {
         expect(rpn.operation['-'](0)).deep.equal(NaN);
-        expect(rpn.operation['-'](0, 1)).equal(-1);
-        expect(rpn.operation['-'](0, -1)).equal(1);
-        expect(rpn.operation['-'](1, 2)).equal(-1);
-        expect(rpn.operation['-'](2, 1)).equal(1);
-        expect(rpn.operation['-']('3', '2')).equal(1);
+        expect(rpn.operation['-'](1, 0)).equal(-1);
+        expect(rpn.operation['-'](-1, 0)).equal(1);
+        expect(rpn.operation['-'](2, 1)).equal(-1);
+        expect(rpn.operation['-'](1, 2)).equal(1);
+        expect(rpn.operation['-']('2', '3')).equal(1);
     });
 
     it('test "*" operator', function () {
@@ -47,14 +47,13 @@ describe('test operation', function () {
     });
 
     it('test "^" operator', function () {
-        expect(rpn.operation['^'](0)).deep.equal(NaN);
-        expect(rpn.operation['^'](0, -1)).deep.equal(Infinity);
-        expect(rpn.operation['^'](0, 2)).equal(0);
-        expect(rpn.operation['^'](2, 3)).equal(8);
-        expect(rpn.operation['^'](-1, 2)).equal(1);
-        expect(rpn.operation['^'](5, -1)).equal(0.2);
-        expect(rpn.operation['^'](5, -2)).equal(0.04);
-        expect(rpn.operation['^']('3', '2')).equal(9);
+        expect(rpn.operation['^'](-1, 0)).deep.equal(Infinity);
+        expect(rpn.operation['^'](2, 0)).equal(0);
+        expect(rpn.operation['^'](3, 2)).equal(8);
+        expect(rpn.operation['^'](2, -1)).equal(1);
+        expect(rpn.operation['^'](-1, 5)).equal(0.2);
+        expect(rpn.operation['^'](-2, 5)).equal(0.04);
+        expect(rpn.operation['^']('2', '3')).equal(9);
     });
 
     it('test "%" operator', function () {

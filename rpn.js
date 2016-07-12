@@ -6,11 +6,11 @@
      * test/operation.js
      */
     var operation = {
-        '+': (a, b) => (+a) + (+b),
-        '-': (a, b) => (+a) - (+b),
-        '*': (a, b) => (+a) * (+b),
+        '+': (b, a) => (+a) + (+b),
+        '-': (b, a) => (+a) - (+b),
+        '*': (b, a) => (+a) * (+b),
         '/': (b, a) => (+a) / (+b),
-        '^': (x, n) => Math.pow(+x, +n),
+        '^': (n, x) => Math.pow(+x, +n),
         '!': function (n) {
             for (var i = 1, r = 1; i <= +n; i++) {
                 r = r * i;
@@ -132,7 +132,7 @@
                 }
             }
         }
-        return calcStack.pop();
+        return +calcStack.pop().toFixed(3);
     }
 
     var rpn = {
