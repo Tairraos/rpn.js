@@ -1,6 +1,6 @@
 ## <ruby>逆波兰表达式工具<rt>Reverse Polish Notation tools</rt></ruby>
 
-### 1. 介绍
+### 1. <ruby>介绍<rt>Intro</rt></ruby>
   
 Translate infix expression to reverse polish notation (postfix expression).  
 Calculate reverse polish notation.  
@@ -10,10 +10,10 @@ support + - * / ^ % ! √ ( ) —
 
 ----
 
-### 2. 接口
-#### 2.1 计算普通算式表达式：
+### 2. <ruby>接口<rt>Interface</rt></ruby>
+#### 2.1 <ruby>计算算式表达式<rt>Calculate infix expression</rt></ruby>
 ``` rpn.calc(expression)``` 或 ``` rpn.calculate(expression) ```
-##### 范例
+##### <ruby>范例<rt>Example</rt></ruby>
 ```
 rpn.calc('1+2+3');
 6
@@ -35,9 +35,9 @@ rpn.calc('15%+2^3');
 8.15
 ```
 
-#### 2.2 转换普通算式表达式为逆波兰表达式：
+#### 2.2 <ruby>转换算式表达式为逆波兰表达式<rt>Translate infix expression to reverse polish notation</rt></ruby>
 ``` rpn.infix2rpn(expression) ```
-#### 范例
+#### <ruby>范例<rt>Example</rt></ruby>
 ```
 rpn.infix2rpn('1+2+3');
 "1 2 + 3 +"
@@ -59,9 +59,9 @@ rpn.infix2rpn('15%+2^3');
 "15 % 2 3 ^ +"
 ```
 
-#### 2.3 计算逆波兰表达式：
+#### 2.3 <ruby>计算逆波兰表达式<rt>Calculate reverse polish notation</rt></ruby>
 ``` rpn.rpnCalculate(expression) ```
-#### 范例
+#### <ruby>范例<rt>Example</rt></ruby>
 ```
 rpn.rpnCalculate('1 2 + 3 +');
 6
@@ -81,18 +81,14 @@ rpn.rpnCalculate('1 % 2 3 ^ +');
 8.01
 rpn.rpnCalculate('15 % 2 3 ^ +');
 8.15
-````
+```
 ----
 
-### 3. 调试及测试
-- ``` mocha ``` 
-如果本机已经全局安装过 mocha 测试工具，那直接用 mocha 命令就可以运行所有的测试
-- ``` npm install ``` 命令会安装本工具单元测试所需要的 mocha 以及生所测试报告的工具 mochawesome
-- ``` npm test ``` 会调用 test.sh 脚本启动测试，并在测试完成后在浏览器里打开测试报告
-
-
-Reverse Polish Notation tools.   
-Translate infix expression to reverse polish notation (postfix expression).  
-Calculate reverse polish notation.  
-support + - * / ^ % ! √ ( ) —   
+### 3. <ruby>调试及测试<rt>Debug and testing</rt></ruby>
+- ``` mocha ```
+- <ruby>如果有全局安装 'mocha' 工具，直接用 'mocha' 命令启动测试<rt>If 'mocha' already installed as a global tool, just use 'mocha' command to start testing</rt></ruby>
+- ``` npm install ```
+- <ruby>命令会安装单元测试所需要的 mocha 以及生所测试报告的工具 mochawesome<rt>Use this command install test tool 'mocha' and test report tool 'mochawesome'</rt></ruby>
+- ``` npm test ```
+- <ruby>用这个命令会启动测试，结束后会在浏览器里打开测试报告<rt>Use this command start testing, and the test report will open in browser after test finish.</rt></ruby>
 
