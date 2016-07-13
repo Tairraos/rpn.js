@@ -3,9 +3,9 @@
 
     /**
      * operations
-     * test/operation.js
+     * @private
      */
-    var operation = {
+    var _operation = {
         '+': (b, a) => (+a) + (+b),
         '-': (b, a) => (+a) - (+b),
         '*': (b, a) => (+a) * (+b),
@@ -23,10 +23,11 @@
 
     /**
      * split expression to array
+     * @private
      * @param exp - infix expression
-     * @returns {Array|Null}
+     * @returns {Array|null}
      */
-    function splitExp(exp) {
+    function _splitExp(exp) {
         exp = exp.replace(/[a-zA-Z]/g, '').replace(/([\d%!])\-(\d√)/g, '$1 - $2').replace(/([+\-\*\/^])\-(\d)/g, '$1 -$2');
         return (/^[+*\/!^%]|\d\(|[\d\)]√|%[\d\(]|![\d\(]|%%|[+\-*\/^]{2,}|[+\-*\/√^]$/.test(exp)) ?
             null : exp.match(/(-?(?:\d+\.?\d*|-?\.\d*))|[()+\-*\/√!^%]/gi);
@@ -34,47 +35,51 @@
 
     /**
      * check character, is or not a operator
+     * @private
      * @param char - character
      * @returns {boolean}
      */
-    function isOperator(char) {
+    function _isOperator(char) {
         return /^[√%!^\/\*\-\+#]$/.test(char);
     }
 
     /**
      * check character, is or not a unary operator
+     * @private
      * @param char - character
      * @returns {boolean}
      */
-    function isUnaryOperator(char) {
+    function _isUnaryOperator(char) {
         return /^[√%!]$/.test(char);
     }
 
     /**
      * check character, is or not a bracket
+     * @private
      * @param char - character
      * @returns {boolean}
      */
-    function isBrackets(char) {
+    function _isBrackets(char) {
         return /^[\(\)]$/.test(char);
     }
 
     /**
      * check string, is or not a number
+     * @private
      * @param str - character
      * @returns {boolean}
      */
-    function isNumber(str) {
+    function _isNumber(str) {
         return /^-?\d+\.\d+$|^-?\d+$/.test(str);
     }
 
     /**
      * transfer infix expression to reverse polish notation
      * @param exp - infix expression
-     * @returns {String|Null}
+     * @returns {string|null}
      */
     function infix2rpn(exp) {
-        var arrExp = splitExp(exp),
+        var arrExp = _splitExp(exp),
             expStack = [], opStack = [], opItem, stackItem,
             precedence = {'√': 3, '%': 3, '!': 3, '^': 3, '/': 2, '*': 2, '-': 1, '+': 1, '#': 0};
         if (!arrExp) {
@@ -84,13 +89,13 @@
         for (var looper = 0; looper < arrExp.length; looper++) {
             opItem = arrExp[looper];
 
-            if (isNumber(opItem)) {
+            if (_isNumber(opItem)) {
                 expStack.push(opItem);
-            } else if (isOperator(opItem)) {
+            } else if (_isOperator(opItem)) {
                 while (opStack.length) {
                     stackItem = opStack.pop();
-                    if (stackItem !== opItem &&
-                        precedence[stackItem] >= precedence[opItem]) {
+                    if ((opItem === '√' && stackItem === '√' && precedence[stackItem] > precedence[opItem]) ||
+                        ((opItem !== '√' || stackItem !== '√') && precedence[stackItem] >= precedence[opItem])) {
                         expStack.push(stackItem);
                     } else {
                         opStack.push(stackItem);
@@ -98,7 +103,7 @@
                     }
                 }
                 opStack.push(opItem);
-            } else if (isBrackets(opItem)) {
+            } else if (_isBrackets(opItem)) {
                 if (opItem === '(') {
                     opStack.push(opItem);
                 } else {
@@ -126,28 +131,39 @@
 
         for (var looper = 0; looper < arrExp.length; looper++) {
             opItem = arrExp[looper];
-            if (isNumber(opItem)) {
+            if (_isNumber(opItem)) {
                 calcStack.push(opItem);
-            } else if (isOperator(opItem)) {
-                if (isUnaryOperator(opItem)) {
-                    calcStack.push(operation[opItem](calcStack.pop()));
+            } else if (_isOperator(opItem)) {
+                if (_isUnaryOperator(opItem)) {
+                    calcStack.push(_operation[opItem](calcStack.pop()));
                 } else {
-                    calcStack.push(operation[opItem](calcStack.pop(), calcStack.pop()));
+                    calcStack.push(_operation[opItem](calcStack.pop(), calcStack.pop()));
                 }
             }
         }
         return +calcStack.pop().toFixed(3);
     }
 
+    /**
+     * calculate expression
+     * @param exp - expression string
+     * @returns {number|null}
+     */
+    function calc(exp) {
+        return rpn.rpnCalculate(rpn.infix2rpn(exp));
+    }
+
     var rpn = {
-        operation: operation,
-        splitExp: splitExp,
+        _operation: _operation,
+        _splitExp: _splitExp,
+        _isOperator: _isOperator,
+        _isBrackets: _isBrackets,
+        _isNumber: _isNumber,
+        _isUnaryOperator: _isUnaryOperator,
         infix2rpn: infix2rpn,
         rpnCalculate: rpnCalculate,
-        isOperator: isOperator,
-        isBrackets: isBrackets,
-        isNumber: isNumber,
-        isUnaryOperator: isUnaryOperator,
+        calculate: calc,
+        calc: calc
     };
 
     if (typeof module !== 'undefined' && module.exports) {
