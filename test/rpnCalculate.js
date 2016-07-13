@@ -11,6 +11,8 @@ describe('test calculate reverse polish notation', function () {
         expect(rpn.rpnCalculate(rpn.infix2rpn('1+√4*3!'))).equal(13);
         expect(rpn.rpnCalculate(rpn.infix2rpn('1+√4!*3!'))).equal(13);
         expect(rpn.rpnCalculate(rpn.infix2rpn('(1+2)*(3+4)'))).equal(21);
-        expect(rpn.rpnCalculate(rpn.infix2rpn('(1+2)*(3+4)!'))).equal(15120);
+        expect(rpn.rpnCalculate(rpn.infix2rpn('√√81'))).equal(3);
+        expect(rpn.rpnCalculate(rpn.infix2rpn('√√81!'))).equal(6);
+        expect(rpn.rpnCalculate(rpn.infix2rpn('√√81!!'))).equal(720);
     });
 });

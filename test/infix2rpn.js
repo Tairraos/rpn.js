@@ -12,5 +12,7 @@ describe('test infix expression to reverse polish notation', function () {
         expect(rpn.infix2rpn('1+√2!*3!')).equal("1 2 √ ! 3 ! * +");
         expect(rpn.infix2rpn('(1+2)*(3+4)')).equal("1 2 + 3 4 + *");
         expect(rpn.infix2rpn('(1+2)*(3+4)!')).equal("1 2 + 3 4 + ! *");
+        expect(rpn.infix2rpn('√√√256')).equal("256 √ √ √");
+        expect(rpn.infix2rpn('√√√256!')).equal("256 √ √ √ !");
     });
 });

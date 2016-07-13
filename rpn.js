@@ -27,8 +27,8 @@
      * @returns {Array|Null}
      */
     function splitExp(exp) {
-        exp = exp.replace(/[a-zA-Z\s]/, '');
-        return (/^[+*\/!^%]|\d√|%\d|!\d|%%|[+\-*\/^]{2,}|[+\-*\/√^]$/.test(exp)) ?
+        exp = exp.replace(/[a-zA-Z]/g, '').replace(/([\d%!])\-(\d√)/g, '$1 - $2').replace(/([+\-\*\/^])\-(\d)/g, '$1 -$2');
+        return (/^[+*\/!^%]|\d\(|[\d\)]√|%[\d\(]|![\d\(]|%%|[+\-*\/^]{2,}|[+\-*\/√^]$/.test(exp)) ?
             null : exp.match(/(-?(?:\d+\.?\d*|-?\.\d*))|[()+\-*\/√!^%]/gi);
     }
 
@@ -74,10 +74,13 @@
      * @returns {String|Null}
      */
     function infix2rpn(exp) {
-        var arrExp = splitExp(exp).concat('#'),
+        var arrExp = splitExp(exp),
             expStack = [], opStack = [], opItem, stackItem,
             precedence = {'√': 3, '%': 3, '!': 3, '^': 3, '/': 2, '*': 2, '-': 1, '+': 1, '#': 0};
-
+        if (!arrExp) {
+            return null;
+        }
+        arrExp = arrExp.concat('#');
         for (var looper = 0; looper < arrExp.length; looper++) {
             opItem = arrExp[looper];
 
@@ -86,7 +89,8 @@
             } else if (isOperator(opItem)) {
                 while (opStack.length) {
                     stackItem = opStack.pop();
-                    if (precedence[stackItem] >= precedence[opItem]) {
+                    if (stackItem !== opItem &&
+                        precedence[stackItem] >= precedence[opItem]) {
                         expStack.push(stackItem);
                     } else {
                         opStack.push(stackItem);
