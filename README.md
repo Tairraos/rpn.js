@@ -1,12 +1,7 @@
-## <ruby>逆波兰表达式工具<rt>Reverse Polish Notation tools</rt></ruby>
+## <ruby>逆波兰表达式工具<rt>Reverse Polish Notation tool</rt></ruby>
 
 ### 1. <ruby>介绍<rt>Intro</rt></ruby>
-  
-Translate infix expression to reverse polish notation (postfix expression).  
-Calculate reverse polish notation.  
-support + - * / ^ % ! √ ( ) —   
-
-
+<ruby>这是一个逆波兰表达式工具<rt>This is reverse polish notation tool</rt></ruby>，<ruby>可以把普通表达式转换为逆波兰表达式<rt>Translate infix expression to reverse polish notation (postfix expression)</rt></ruby>，<ruby>还可以计算逆波兰表达式<rt>Calculate reverse polish notation</rt></ruby>，<ruby>支持<rt>support</rt></ruby> + - * / ^ % ! √ ( ) —。
 
 ----
 
@@ -88,7 +83,7 @@ rpn.rpnCalculate('15 % 2 3 ^ +');
 - ``` mocha ```
 - <ruby>如果有全局安装 'mocha' 工具，直接用 'mocha' 命令启动测试<rt>If 'mocha' already installed as a global tool, just use 'mocha' command to start testing</rt></ruby>
 - ``` npm install ```
-- <ruby>命令会安装单元测试所需要的 mocha 以及生所测试报告的工具 mochawesome<rt>Use this command install test tool 'mocha' and test report tool 'mochawesome'</rt></ruby>
+- <ruby>命令会安装单元测试所需要的 mocha 以及生所测试报告的工具 mochawesome<rt>Use this command to install test tool 'mocha' and test report tool 'mochawesome'</rt></ruby>
 - ``` npm test ```
-- <ruby>用这个命令会启动测试，结束后会在浏览器里打开测试报告<rt>Use this command start testing, and the test report will open in browser after test finish.</rt></ruby>
+- <ruby>用这个命令会启动测试，结束后会在浏览器里打开测试报告<rt>Use this command to start testing, and the test report will open in browser after test finish.</rt></ruby>
 
