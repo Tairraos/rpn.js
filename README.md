@@ -1,7 +1,7 @@
 ## <ruby>逆波兰表达式工具<rt>Reverse Polish Notation tool</rt></ruby>
 
 ### 1. <ruby>介绍<rt>Intro</rt></ruby>
-<ruby>逆波兰表达式工具<rt>Reverse polish notation tool</rt></ruby>，<ruby>把普通表达式转换为逆波兰表达式<rt>translate infix expression to reverse polish notation</rt></ruby>，<ruby>或者计算逆波兰表达式<rt>Calculate reverse polish notation</rt></ruby>，<ruby>支持<rt>support</rt></ruby> + - * / ^ % ! √ ( )。
+<ruby>逆波兰表达式工具，<rt>Reverse polish notation tool, </rt></ruby>，<ruby>把普通表达式转换为逆波兰表达式，<rt>translate infix expression to reverse polish notation, </rt></ruby><ruby>或者计算逆波兰表达式，<rt>calculate reverse polish notation, </rt></ruby><ruby>支持 + - * / ^ % ! √ ( )。<rt>support + - * / ^ % ! √ ( ).</rt></ruby>
 
 ----
 
