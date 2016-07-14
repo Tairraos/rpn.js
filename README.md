@@ -8,7 +8,7 @@
 ----
 ### 2. <ruby>用法<rt>Usage</rt></ruby>
 #### 2.1 Node
-```
+```javascript
 $node
 > var run = require('./rpn');
 > console.log(rpn.calc('1+2+3+4+5+√√81!'));
@@ -16,7 +16,7 @@ $node
 ```
 
 #### 2.2 Browser
-```
+```HTML
 <script src='./rpn.js'></script>
  <script>console.log(rpn.calc('1+2+3+4+5+√√81!')); //21 </script> 
 ```
@@ -25,7 +25,7 @@ $node
 #### 3.1 <ruby>计算算式表达式<rt>Calculate infix expression</rt></ruby>
 ``` rpn.calc(expression)``` 或 ``` rpn.calculate(expression) ```
 ##### <ruby>范例<rt>Example</rt></ruby>
-```
+```javascript
 rpn.calc('1+2+3');
 6
 rpn.calc('8!');
@@ -49,7 +49,7 @@ rpn.calc('15%+2^3');
 #### 3.2 <ruby>转换算式表达式为逆波兰表达式<rt>Translate infix expression to reverse polish notation</rt></ruby>
 ``` rpn.infix2rpn(expression) ```
 #### <ruby>范例<rt>Example</rt></ruby>
-```
+```javascript
 rpn.infix2rpn('1+2+3');
 "1 2 + 3 +"
 rpn.infix2rpn('8!');
@@ -73,7 +73,7 @@ rpn.infix2rpn('15%+2^3');
 #### 3.3 <ruby>计算逆波兰表达式<rt>Calculate reverse polish notation</rt></ruby>
 ``` rpn.rpnCalculate(expression) ```
 #### <ruby>范例<rt>Example</rt></ruby>
-```
+```javascript
 rpn.rpnCalculate('1 2 + 3 +');
 6
 rpn.rpnCalculate('8 !');
