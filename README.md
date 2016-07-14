@@ -17,7 +17,8 @@ $node
 
 #### 2.2 Browser
 ```
-<script src='./rpn.js'></script> <script>console.log(rpn.calc('1+2+3+4+5+√√81!'));</script> 
+<script src='./rpn.js'></script>
+ <script>console.log(rpn.calc('1+2+3+4+5+√√81!')); //21 </script> 
 ```
 
 ### 3. <ruby>接口<rt>Interface</rt></ruby>
