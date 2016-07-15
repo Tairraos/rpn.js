@@ -1,7 +1,7 @@
 ## <ruby>逆波兰表达式工具<rt>Reverse Polish Notation tool</rt></ruby>
 
 ### 1. <ruby>介绍<rt>Intro</rt></ruby>
-<ruby>逆波兰表达式工具<rt>Reverse polish notation tool, </rt></ruby>，<ruby>把普通表达式转换为逆波兰表达式<rt>translate infix expression to reverse polish notation, </rt></ruby>，<ruby>或者计算逆波兰表达式<rt>calculate reverse polish notation, </rt></ruby>，<ruby>支持 + - * / ^ % ! √ ( )<rt>support + - * / ^ % ! √ ( ).</rt></ruby>。  
+<ruby>逆波兰表达式工具<rt>Reverse polish notation tool, </rt></ruby>，<ruby>普通表达式 和 逆波兰表达式 互相转换 <rt>translate between infix expression and reverse polish notation, </rt></ruby>，<ruby>计算 普通表达式 和 逆波兰表达式<rt>calculate infix expression and reverse polish notation, </rt></ruby>，<ruby>支持 + - * / ^ % ! √ ( )<rt>support + - * / ^ % ! √ ( ).</rt></ruby>。
 
 <ruby>可以在浏览器里使用，也可以当作Node的模块使用<rt>The tool both worked on browser and work as a node module.</rt></ruby>。
 
@@ -11,38 +11,38 @@
 ```javascript
 $node
 > var run = require('./rpn');
-> console.log(rpn.calc('1+2+3+4+5+√√81!'));
+> console.log(rpn.calculate('1+2+3+4+5+√√81!'));
 21
 ```
 
 #### 2.2 Browser
 ```HTML
 <script src='./rpn.js'></script>
- <script>console.log(rpn.calc('1+2+3+4+5+√√81!')); //21 </script> 
+ <script>console.log(rpn.calculate('1+2+3+4+5+√√81!')); //21 </script> 
 ```
 
 ### 3. <ruby>接口<rt>Interface</rt></ruby>
 #### 3.1 <ruby>计算算式表达式<rt>Calculate infix expression</rt></ruby>
-``` rpn.calc(expression)``` 或 ``` rpn.calculate(expression) ```
+``` rpn.calculate(expression) ```
 ##### <ruby>范例<rt>Example</rt></ruby>
 ```javascript
-rpn.calc('1+2+3');
+rpn.calculate('1+2+3');
 6
-rpn.calc('8!');
+rpn.calculate('8!');
 40320
-rpn.calc('√81');
+rpn.calculate('√81');
 9
-rpn.calc('√√81!');
+rpn.calculate('√√81!');
 6
-rpn.calc('1+2+3+4+5+√√81!');
+rpn.calculate('1+2+3+4+5+√√81!');
 21
-rpn.calc('1+2*3+4/5');
+rpn.calculate('1+2*3+4/5');
 7.8
-rpn.calc('1+2^3');
+rpn.calculate('1+2^3');
 9
-rpn.calc('1%+2^3');
+rpn.calculate('1%+2^3');
 8.01
-rpn.calc('15%+2^3');
+rpn.calculate('15%+2^3');
 8.15
 ```
 
@@ -70,7 +70,7 @@ rpn.infix2rpn('15%+2^3');
 "15 % 2 3 ^ +"
 ```
 
-#### 3.3 <ruby>计算逆波兰表达式<rt>Calculate reverse polish notation</rt></ruby>
+#### 3.3 <ruby>转换逆波兰表达式为算式表达式<rt>Calculate reverse polish notation</rt></ruby>
 ``` rpn.rpnCalculate(expression) ```
 #### <ruby>范例<rt>Example</rt></ruby>
 ```javascript
@@ -93,6 +93,31 @@ rpn.rpnCalculate('1 % 2 3 ^ +');
 rpn.rpnCalculate('15 % 2 3 ^ +');
 8.15
 ```
+
+#### 3.4 <ruby>逆波兰表达式<rt>Translate reverse polish notation to infix expression</rt></ruby>
+``` rpn.rpn2infix(expression) ```
+#### <ruby>范例<rt>Example</rt></ruby>
+```javascript
+rpn.rpn2infix('1 2 + 3 +');
+"1 + 2 + 3"
+rpn.rpn2infix('8 !');
+"8!"
+rpn.rpn2infix('81 √');
+"√81"
+rpn.rpn2infix('81 √ √ !');
+"√√81!"
+rpn.rpn2infix('1 2 + 3 + 4 + 5 + 81 √ √ ! +');
+"1 + 2 + 3 + 4 + 5 + √√81!"
+rpn.rpn2infix('1 2 3 * + 4 5 / +');
+"1 + 2 * 3 + 4 / 5"
+rpn.rpn2infix('1 2 3 ^ +');
+"1 + 2 ^ 3"
+rpn.rpn2infix('1 % 2 3 ^ +');
+"1% + 2 ^ 3"
+rpn.rpn2infix('15 % 2 3 ^ +');
+"15% + 2 ^ 3"
+```
+
 ----
 
 ### 4. <ruby>调试及测试<rt>Debug and testing</rt></ruby>
