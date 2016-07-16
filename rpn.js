@@ -10,11 +10,11 @@
          * @private
          */
         _operation: {
-            '+': (b, a) => (+a) + (+b),
-            '-': (b, a) => (+a) - (+b),
-            '*': (b, a) => (+a) * (+b),
-            '/': (b, a) => (+a) / (+b),
-            '^': (n, x) => Math.pow(+x, +n),
+            '+': (a, b) => (+a) + (+b),
+            '-': (a, b) => (+a) - (+b),
+            '*': (a, b) => (+a) * (+b),
+            '/': (a, b) => (+a) / (+b),
+            '^': (x, n) => Math.pow(+x, +n),
             '!': function (n) {
                 for (var i = 1, r = 1; i <= +n; i++) {
                     r = r * i;
@@ -75,16 +75,6 @@
          */
         _isNumber: function (str) {
             return /^-?\d+\.\d+$|^-?\d+$/.test(str);
-        },
-
-        /**
-         * transfer reverse polish notation to infix expression
-         * @param exp - infix expression
-         * @returns {string|null}
-         */
-        rpn2infix: function (exp) {
-
-
         },
 
         /**
@@ -150,7 +140,9 @@
                     if (rpn._isUnaryOperator(opItem)) {
                         calcStack.push(rpn._operation[opItem](calcStack.pop()));
                     } else {
-                        calcStack.push(rpn._operation[opItem](calcStack.pop(), calcStack.pop()));
+                        param2 = calcStack.pop();
+                        param1 = calcStack.pop();
+                        calcStack.push(rpn._operation[opItem](param1, param2));
                     }
                 }
             }
