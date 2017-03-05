@@ -3,7 +3,7 @@
 ### 1. <ruby>介绍<rt>Intro</rt></ruby>
 <ruby>逆波兰表达式工具<rt>Reverse polish notation tool, </rt></ruby>，<ruby>普通表达式 和 逆波兰表达式 互相转换 <rt>translate between infix expression and reverse polish notation, </rt></ruby>，<ruby>计算 普通表达式 和 逆波兰表达式<rt>calculate infix expression and reverse polish notation, </rt></ruby>，<ruby>支持 + - * / ^ % ! √ ( )<rt>support + - * / ^ % ! √ ( ).</rt></ruby>。
 
-<ruby>可以在浏览器里使用，也可以当作Node的模块使用<rt>The tool both worked on browser and work as a node module.</rt></ruby>。
+<ruby>可以在浏览器里使用，也可以当作Node的模块使用<rt>The tool is both worked on browser and work as a node module.</rt></ruby>。
 
 ----
 ### 2. <ruby>用法<rt>Usage</rt></ruby>
