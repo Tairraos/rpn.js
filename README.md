@@ -70,7 +70,7 @@ rpn.infix2rpn('15%+2^3');
 "15 % 2 3 ^ +"
 ```
 
-#### 3.3 <ruby>转换逆波兰表达式为算式表达式<rt>Calculate reverse polish notation</rt></ruby>
+#### 3.3 <ruby>计算逆波兰表达式<rt>Calculate reverse polish notation</rt></ruby>
 ``` rpn.rpnCalculate(expression) ```
 #### <ruby>范例<rt>Example</rt></ruby>
 ```javascript
@@ -94,7 +94,7 @@ rpn.rpnCalculate('15 % 2 3 ^ +');
 8.15
 ```
 
-#### 3.4 <ruby>逆波兰表达式<rt>Translate reverse polish notation to infix expression</rt></ruby>
+#### 3.4 <ruby>转换逆波兰表达式为算式表达式<rt>Translate reverse polish notation to infix expression</rt></ruby>
 ``` rpn.rpn2infix(expression) ```
 #### <ruby>范例<rt>Example</rt></ruby>
 ```javascript
