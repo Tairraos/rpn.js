@@ -10,7 +10,7 @@
 #### 2.1 Node
 ```javascript
 $node
-> var run = require('./rpn');
+> var rpn = require('./rpn');
 > console.log(rpn.calculate('1+2+3+4+5+√√81!'));
 21
 ```
