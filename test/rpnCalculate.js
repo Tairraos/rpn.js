@@ -14,5 +14,8 @@ describe('test calculate reverse polish notation', function () {
         expect(rpn.rpnCalculate(rpn.infix2rpn('√√81'))).equal(3);
         expect(rpn.rpnCalculate(rpn.infix2rpn('√√81!'))).equal(6);
         expect(rpn.rpnCalculate(rpn.infix2rpn('√√81!!'))).equal(720);
+        expect(rpn.rpnCalculate(rpn.infix2rpn('5-1'))).equal(4);
+        expect(rpn.rpnCalculate(rpn.infix2rpn('5+ -2'))).equal(3);
+        expect(rpn.rpnCalculate(rpn.infix2rpn('5--2'))).equal(7);
     });
 });
