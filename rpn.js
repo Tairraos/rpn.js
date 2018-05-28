@@ -32,7 +32,7 @@
          * @returns {Array|null}
          */
         _splitExp: function (exp) {
-            exp = exp.replace(/[a-zA-Z]/g, '').replace(/([\d%!])\-(\d√)/g, '$1 - $2').replace(/([+\-\*\/^])\-(\d)/g, '$1 -$2');
+            exp = exp.replace(/[a-zA-Z]/g, '').replace(/([\d%!])\-(\d)/g, '$1 - $2').replace(/([+\-\*\/^])\-(\d)/g, '$1 -$2');
             return (/^[+*\/!^%]|\d\(|[\d\)]√|%[\d\(]|![\d\(]|%%|[+\-*\/^]{2,}|[+\-*\/√^]$/.test(exp)) ?
                 null : exp.match(/(-?(?:\d+\.?\d*|-?\.\d*))|[()+\-*\/√!^%]/gi);
         },
