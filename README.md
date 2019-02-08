@@ -9,7 +9,7 @@
 ### 2. <ruby>用法<rt>Usage</rt></ruby>
 #### 2.1 Node
 ```javascript
-$npm install rpn.js
+$npm install jsrpn
 $node
 > let rpn = require('rpn.js');
 > console.log(rpn.calculate('1+2+3+4+5+√√81!'));
