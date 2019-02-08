@@ -1,5 +1,5 @@
 {
-    "name": "rpn.js",
+    "name": "jsrpn",
     "version": "1.0.0",
     "description": "Reverse Polish Notation tools. Translate infix expression to reverse polish notation (postfix expression) and Calculate reverse polish notation. support + - * / ^ % ! √ ( )",
     "author": "Tairraos Tao (xiaole.tao@gmail.com)",
