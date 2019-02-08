@@ -1,13 +1,11 @@
 {
     "name": "rpn.js",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "Reverse Polish Notation tools. Translate infix expression to reverse polish notation (postfix expression) and Calculate reverse polish notation. support + - * / ^ % ! √ ( )",
     "author": "Tairraos Tao (xiaole.tao@gmail.com)",
     "license": "MIT",
     "main": "rpn.js",
-    "repository": {
-        "url": "https://github.com/Tairraos/rpn.js.git"
-    },
+    "repository": "https://github.com/Tairraos/rpn.js.git",
     "devDependencies": {
         "chai": "^3.5.0",
         "mocha": "^2.5.3",
