@@ -11,7 +11,7 @@
 ```javascript
 $npm install jsrpn
 $node
-> let rpn = require('rpn.js');
+> let rpn = require('jsrpn');
 > console.log(rpn.calculate('1+2+3+4+5+√√81!'));
 21
 ```
